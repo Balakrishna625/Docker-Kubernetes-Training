@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bala Training - Snake Game</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 32px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+        }
+        canvas {
+            border: 3px solid white;
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bala Training - Snake Game</h1>
+    <canvas id="gameCanvas" width="600" height="600"></canvas>
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let box = 20;
+        let snake = [{x: 9 * box, y: 10 * box}];
+        let direction = "RIGHT";
+        let food = {
+            x: Math.floor(Math.random() * (canvas.width/box)) * box,
+            y: Math.floor(Math.random() * (canvas.height/box)) * box
+        };
+
+        document.addEventListener("keydown", e => {
+            if (e.key === "ArrowLeft" && direction !== "RIGHT") direction = "LEFT";
+            if (e.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
+            if (e.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
+            if (e.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
+        });
+
+        function draw() {
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < snake.length; i++) {
+                ctx.fillStyle = (i === 0) ? "lime" : "white";
+                ctx.fillRect(snake[i].x, snake[i].y, box, box);
+            }
+
+            ctx.fillStyle = "red";
+            ctx.fillRect(food.x, food.y, box, box);
+
+            let snakeX = snake[0].x;
+            let snakeY = snake[0].y;
+
+            if (direction === "LEFT") snakeX -= box;
+            if (direction === "UP") snakeY -= box;
+            if (direction === "RIGHT") snakeX += box;
+            if (direction === "DOWN") snakeY += box;
+
+            if (snakeX === food.x && snakeY === food.y) {
+                food = {
+                    x: Math.floor(Math.random() * (canvas.width/box)) * box,
+                    y: Math.floor(Math.random() * (canvas.height/box)) * box
+                };
+            } else {
+                snake.pop();
+            }
+
+            let newHead = {x: snakeX, y: snakeY};
+
+            // Game Over conditions
+            if (
+                snakeX < 0 || snakeY < 0 ||
+                snakeX >= canvas.width || snakeY >= canvas.height ||
+                snake.some(seg => seg.x === newHead.x && seg.y === newHead.y)
+            ) {
+                clearInterval(game);
+
+                // Fire confetti
+                confetti({
+                    particleCount: 150,
+                    spread: 90,
+                    origin: { y: 0.6 }
+                });
+
+                setTimeout(() => {
+                    alert("Game Over! 🎉");
+                }, 500);
+            }
+
+            snake.unshift(newHead);
+        }
+
+        let game = setInterval(draw, 100);
+    </script>
+</body>
+</html>
