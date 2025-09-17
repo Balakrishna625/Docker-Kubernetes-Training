@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: snake-app
+spec:
+  containers:
+  - name: snake-app
+    image: balakrishna625/snake:latest
+    ports:
+    - containerPort: 5000
+
