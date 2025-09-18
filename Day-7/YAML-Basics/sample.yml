@@ -1,0 +1,31 @@
+# These are called comments
+
+
+#Key-Value Pairs
+
+name: Bala
+role: Devops
+city: Hyderabad
+
+
+#Dictionary/Map
+# A set of properties grouped together
+# Each item under a dictionary must have equal indendation
+
+person:
+  name: Bala
+  role: Devops
+  city: Hyderabad 
+
+
+# Array/Lists
+
+# Dash (-) indicates an item inside a list
+
+person: 
+  name: Bala
+  hobbies:
+    - cycling
+    - playing cricket
+
+
