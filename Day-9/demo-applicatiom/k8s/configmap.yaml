@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: weather-config
+  labels:
+    app: weather-dashboard
+data:
+  DEFAULT_CITY: "London"
+  API_ENDPOINT: "http://api.openweathermap.org/data/2.5/weather"
+  CITIES_CONFIG: |
+    {
+      "london": "London,UK",
+      "tokyo": "Tokyo,JP", 
+      "newyork": "New York,US",
+      "sydney": "Sydney,AU",
+    }
+  # Additional configuration
+  LOG_LEVEL: "info"
+  NODE_ENV: "production"

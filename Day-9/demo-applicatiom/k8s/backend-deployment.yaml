@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-backend
+  labels:
+    app: weather-dashboard
+    component: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: weather-dashboard
+      component: backend
+  template:
+    metadata:
+      labels:
+        app: weather-dashboard
+        component: backend
+    spec:
+      containers:
+      - name: weather-api
+        image: balakrishna625/weather-backend
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+          name: http
+        env:
+        - name: ENVIRONMENT
+          value: "Production"
+        # ConfigMap values
+        - name: DEFAULT_CITY
+          valueFrom:
+            configMapKeyRef:
+              name: weather-config
+              key: DEFAULT_CITY
+        - name: API_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              name: weather-config
+              key: API_ENDPOINT
+        - name: CITIES_CONFIG
+          valueFrom:
+            configMapKeyRef:
+              name: weather-config
+              key: CITIES_CONFIG
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: weather-config
+              key: LOG_LEVEL
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: weather-config
+              key: NODE_ENV
+        # Secret values
+        - name: OPENWEATHER_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: weather-secrets
+              key: OPENWEATHER_API_KEY
+        - name: ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: weather-secrets
+              key: ADMIN_PASSWORD
+        # Health checks
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: weather-backend-service
+  labels:
+    app: weather-dashboard
+    component: backend
+spec:
+  selector:
+    app: weather-dashboard
+    component: backend
+  ports:
+  - port: 3000
+    targetPort: 3000
+    name: http
+  type: ClusterIP

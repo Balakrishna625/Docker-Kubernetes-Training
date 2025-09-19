@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snake-app
+  labels:
+    app: game
+    application: python
+spec:
+  # modify replicas according to your case
+  replicas: 2
+  selector:
+    matchLabels:
+      application: python
+      app: frontend
+  template:
+    metadata:
+      labels:
+        application: python
+        app: frontend
+    spec:
+      containers:
+      - name: snake-game
+        image: balakrishna625/snake:latest
+
+
+
