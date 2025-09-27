@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: snake-app
+  namespace: dev
   labels: 
     application: python
     app: frontend
