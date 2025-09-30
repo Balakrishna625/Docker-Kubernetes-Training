@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-pv
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    command: ["/bin/sh", "-c"]
+    args: ["sleep 3600"]
+    volumeMounts:
+    - name: persistent-storage
+      mountPath: /data
+  volumes:
+  - name: persistent-storage
+    persistentVolumeClaim:
+      claimName: demo-pvc-789

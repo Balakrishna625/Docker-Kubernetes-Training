@@ -4,6 +4,7 @@ metadata:
   name: aws-cli
   namespace: default
 spec:
+  serviceAccountName: aws-cli-sa
   containers:
   - name: aws-cli
     image: amazon/aws-cli

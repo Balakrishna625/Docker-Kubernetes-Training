@@ -5,7 +5,7 @@ export AWS_PROFILE=eks-training
 eksctl create cluster --name=eksdemo1 \
                       --region=us-east-1 \
                       --zones=us-east-1a,us-east-1b \
-                      --version=1.29 \
+                      --version=1.31 \
                       --without-nodegroup
 
 # Associate OIDC Provider
@@ -18,10 +18,10 @@ eksctl utils associate-iam-oidc-provider \
 eksctl create nodegroup --cluster=eksdemo1 \
                        --region=us-east-1 \
                        --name=eksdemo1-ng-public1 \
-                       --node-type=t3.micro \
-                       --nodes=3 \
-                       --nodes-min=3 \
-                       --nodes-max=4 \
+                       --node-type=t3.medium \
+                       --nodes=1 \
+                       --nodes-min=1 \
+                       --nodes-max=2 \
                        --node-volume-size=20 \
                        --ssh-access \
                        --ssh-public-key=kube-demo \
