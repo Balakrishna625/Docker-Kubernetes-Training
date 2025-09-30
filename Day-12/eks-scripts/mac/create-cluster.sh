@@ -18,10 +18,10 @@ eksctl utils associate-iam-oidc-provider \
 eksctl create nodegroup --cluster=eksdemo1 \
                        --region=us-east-1 \
                        --name=eksdemo1-ng-public1 \
-                       --node-type=t3.medium \
-                       --nodes=1 \
-                       --nodes-min=1 \
-                       --nodes-max=2 \
+                       --node-type=t2.medium \
+                       --nodes=2 \
+                       --nodes-min=2 \
+                       --nodes-max=4 \
                        --node-volume-size=20 \
                        --ssh-access \
                        --ssh-public-key=kube-demo \
