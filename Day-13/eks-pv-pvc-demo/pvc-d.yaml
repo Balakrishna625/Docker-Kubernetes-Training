@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"PersistentVolumeClaim","metadata":{"annotations":{},"name":"demo-pvc-789","namespace":"default"},"spec":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"100Gi"}},"volumeName":"demo-pv-12345"}}
+    pv.kubernetes.io/bind-completed: "yes"
+  creationTimestamp: "2025-10-01T11:40:28Z"
+  deletionGracePeriodSeconds: 0
+  deletionTimestamp: "2025-10-01T11:42:01Z"
+  name: demo-pvc-789
+  namespace: default
+  resourceVersion: "3861"
+  uid: e59b8b0c-4637-4e7f-832d-f3b7f879724d
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+  volumeMode: Filesystem
+  volumeName: demo-pv-12345
+status:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 100Gi
+  phase: Bound
