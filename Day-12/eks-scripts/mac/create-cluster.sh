@@ -2,7 +2,7 @@
 # Create EKS Cluster (Control Plane Only)
 export AWS_PROFILE=eks-training
 
-eksctl create cluster --name=eksdemo1 \
+eksctl create cluster --name=eksdemo2 \
                       --region=us-east-1 \
                       --zones=us-east-1a,us-east-1b \
                       --version=1.31 \
@@ -11,13 +11,13 @@ eksctl create cluster --name=eksdemo1 \
 # Associate OIDC Provider
 eksctl utils associate-iam-oidc-provider \
     --region us-east-1 \
-    --cluster eksdemo1 \
+    --cluster eksdemo2 \
     --approve
 
 # Create Node Group in Public Subnets with Add-ons
-eksctl create nodegroup --cluster=eksdemo1 \
+eksctl create nodegroup --cluster=eksdemo2 \
                        --region=us-east-1 \
-                       --name=eksdemo1-ng-public1 \
+                       --name=eksdemo2-ng-public1 \
                        --node-type=t3.small \
                        --nodes=2 \
                        --nodes-min=2 \

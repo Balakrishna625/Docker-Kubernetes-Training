@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bala's Ball App Game</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Bala's Ball App Game</h1>
+    <canvas id="game" width="480" height="720" aria-label="Ball App Game" role="img"></canvas>
+    <div class="controls">
+      <button id="startBtn">Start</button>
+      <button id="pauseBtn">Pause</button>
+      <span id="score">Score: 0</span>
+      <span id="status"></span>
+    </div>
+    <p class="help">
+      Move paddle: <kbd>←</kbd>/<kbd>→</kbd> or drag/tap. If the ball misses the paddle, it's game over.
+    </p>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
