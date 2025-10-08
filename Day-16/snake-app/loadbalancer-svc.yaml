@@ -2,10 +2,22 @@ apiVersion: v1
 kind: Service
 metadata:
   name: python-loadbalancer
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:us-east-1:437387546987:certificate/8e41cc8e-e62d-448c-a2cb-89d45cf8fcb6"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: "HTTP"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: "traffic-port"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: "/"
 spec:
   selector:
     app: python-app
+
   ports:
-  - port: 80
+  - name: https
+    port: 443        # client → ELB
+    targetPort: 80   # ELB → pods (HTTP)
+  - name: http
+    port: 80
     targetPort: 5000
   type: LoadBalancer
