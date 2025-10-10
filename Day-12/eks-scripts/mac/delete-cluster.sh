@@ -6,7 +6,7 @@ export AWS_PROFILE=eks-training
 kubectl delete pdb --all --all-namespaces
 
 # Delete Node Group
-eksctl delete nodegroup --cluster=eksdemo2 --name=eksdemo2-ng-public1
+eksctl delete nodegroup --cluster=eksdemo3 --name=eksdemo3-ng-public1
 
 # Delete EKS Cluster
-eksctl delete cluster eksdemo2
+eksctl delete cluster eksdemo3

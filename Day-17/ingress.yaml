@@ -6,7 +6,7 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
     alb.ingress.kubernetes.io/ssl-redirect: '443'
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:<ACCOUNT_ID>:certificate/<CERT_ID>
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:437387546987:certificate/8e41cc8e-e62d-448c-a2cb-89d45cf8fcb6
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/healthcheck-path: /
     alb.ingress.kubernetes.io/group.name: balatraining
@@ -31,5 +31,15 @@ spec:
         backend:
           service:
             name: ball-app-svc
+            port:
+              number: 80
+  - host: mario.balatraining.in
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: mario-svc
             port:
               number: 80

@@ -26,7 +26,7 @@ Key points:
 
 ## 2. Prerequisites
 
-- **EKS cluster** (e.g., `eksdemo2`) in **us-east-1** with `kubectl`, `helm`, `aws` CLI configured.
+- **EKS cluster** (e.g., `eksdemo3`) in **us-east-1** with `kubectl`, `helm`, `aws` CLI configured.
 - **OIDC provider** associated with the cluster (IRSA).
 - **Public subnets** tagged for ALB creation:
   - `kubernetes.io/role/elb = 1` (public)
@@ -53,7 +53,7 @@ aws iam create-policy \
 ### 3.2 Create IRSA service account
 ```bash
 eksctl create iamserviceaccount \
-  --cluster=eksdemo2 \
+  --cluster=eksdemo3 \
   --namespace=kube-system \
   --name=aws-load-balancer-controller \
   --attach-policy-arn=arn:aws:iam::<ACCOUNT_ID>:policy/AWSLoadBalancerControllerIAMPolicy \
@@ -68,7 +68,7 @@ helm repo add eks https://aws.github.io/eks-charts
 helm repo update
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   -n kube-system \
-  --set clusterName=eksdemo2 \
+  --set clusterName=eksdemo3 \
   --set serviceAccount.create=false \
   --set serviceAccount.name=aws-load-balancer-controller
 ```
@@ -248,7 +248,7 @@ kubectl delete -f apps.yaml
 helm uninstall aws-load-balancer-controller -n kube-system
 
 eksctl delete iamserviceaccount \
-  --cluster=eksdemo2 \
+  --cluster=eksdemo3 \
   --namespace=kube-system \
   --name=aws-load-balancer-controller \
   --region us-east-1
